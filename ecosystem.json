@@ -1,0 +1,29 @@
+{
+	"apps":[
+		{
+			"name":"movie",
+			"script":"index.js",
+			"env":{
+				"COMMON_VARIABLE":"true"
+			},
+			"env_production":{
+				"NODE_ENV":"production"
+			}
+		}
+	],
+	"deploy":{
+		"production":{
+			"user":"applekj",
+			"host":["118.31.64.215"],
+			"port":"22",
+			"ref":"origin/master",
+			"repo":"https://github.com/applekj/movie.git",
+			"path":"www/movie/production",
+			"ssh_optinons":"StrictHostKeyChecking=no",
+			"post-deploy":"npm install --registry=https://registry.npm.taobao.org && grunt build && pm2 startOrRestart ecosystem.json --env production",
+			"env":{
+				"NODE_ENV":"production"
+			}
+		}
+	}
+}
